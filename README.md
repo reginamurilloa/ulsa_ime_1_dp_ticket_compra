@@ -6,7 +6,7 @@
 ## 1. Descripción del problema (Fase 1)
 <!-- Explica con tus palabras qué hace tu programa y para qué serviría en la vida real. Máximo 4 líneas. -->
 
-_____
+Este programa realizara un ticket de compras, el cual dara el precio de cada producto, un descuento, el Iva de estos, el total a pagar por todos los productos incluyendo el iva, para llevar de manera mas ordenada tus compras. 
 
 ## 2. Entradas y salidas (Fase 1)
 <!-- Define cada entrada y cada salida, con su tipo de dato y la función de utilerias.h con la que la vas a leer. -->
@@ -15,16 +15,18 @@ _____
 
 | Entrada | Tipo de dato | Función de `utilerias.h` |
 |---|---|---|
-| _____ | _____ | _____ |
-| _____ | _____ | _____ |
-| _____ | _____ | _____ |
-| _____ | _____ | _____ |
+| Producto | string | leerCadena |
+| Descuento | double o int |leerDecimal o leerEntero|
+| Precio |  double o int | leerDecimal o leerEntero |
+
 
 **Salida** (¿qué datos muestra el ticket?):
-_____
+Producto, Precio, Cantidad, Subtotal, Descuento, IVA, total y persona que lo atendio
+
 
 **¿El IVA se calcula sobre el subtotal o sobre lo que queda después del descuento? ¿Por qué?**
-_____
+El IVA se calcula después del descuento, ya que el descuento reduce el valor de la venta 
+Entoces primero suma los precios de los productos, luego se aplica el descuento y finalmente se le suma el IVA
 
 ## 3. Restricciones e invariante (Fases 1 y 2)
 
@@ -32,40 +34,40 @@ _____
 
 | Dato | ¿Qué valores son válidos? | ¿Por qué? |
 |---|---|---|
-| Nombre del producto | _____ | _____ |
-| Precio | _____ | _____ |
-| Cantidad | _____ | _____ |
-| Descuento (%) | _____ | _____ |
+| Nombre del producto | Todos los articulos que puedes encontrar en el super | ya que sera un ticket de supermercado |
+| Precio | valores enteros y con punto decimal | ya que existen productso con diversos precios |
+| Cantidad | De 1 a 20 productos | para tener mayor control en el ticket |
+| Descuento (%) | 0, 5, 10 y 15 % | para tener analizados los descuentos a aplicar |
 
 **¿Qué hace mi programa si el usuario escribe un dato fuera de rango?**
-_____
+Dice que el dato es erroneo que no es valido
 
 **¿Puede el total salir negativo? ¿Por qué?**
-_____
+no, porque todos los precios de los productos tienen que ser positivos para comprarlos
 
 **Invariante 1** (después del ciclo que valida el precio, ¿qué es siempre cierto sobre `precio`?):
-_____
+precio tiene que ser mayor a 0, para que se ingrese correctamente 
 
 **Invariante 2** (¿qué relación se cumple siempre entre el subtotal, el descuento, el IVA y el total?):
-_____
+subtotal - descuento + IVA = total 
 
 ## 4. Casos resueltos a mano (Fase 1)
 
 | Caso | Nombre | Precio | Cantidad | Descuento (%) | Subtotal | Descuento ($) | IVA | Total |
 |---|---|---|---|---|---|---|---|---|
-| 1 (sin descuento) | _____ | _____ | _____ | _____ | _____ | _____ | _____ | _____ |
-| 2 (con descuento) | _____ | _____ | _____ | _____ | _____ | _____ | _____ | _____ |
-| 3 (precio con centavos) | _____ | _____ | _____ | _____ | _____ | _____ | _____ | _____ |
+| 1 (sin descuento) | Leche | 35 | 2| 0% | 70 | 0 | 11.20 | 81.2 |
+| 2 (con descuento) | Nieve | 65 | 3 | 10% | 195 | 19.5 | 28.08 | 203.58 |
+| 3 (precio con centavos) | Tortillas | 24.6 | 6 | 5% | 147.6 | 7.38 | 22.44 | 162.66 |
 
 ## 5. Tipo de dato abstracto (Fase 1)
 
 | TDA | Datos (¿qué tiene?) | Operaciones (¿qué se puede hacer con él?) |
 |---|---|---|
-| Producto | nombre (texto), _____, _____ | calcular su subtotal |
-| _____ | _____ | _____ |
+| Producto | nombre (texto)| sumas, resta, multiplicacion | calcular su subtotal |
+| Ticket | lista de productos | descuento, suma, resta | calcular el total |
 
 **Jerarquías:** una tienda vende productos por pieza (un cuaderno) y productos por peso (un kilo de tortillas). ¿Los dos son productos? ¿Qué datos tienen en común y cuál cambia?
-_____
+Si ambos son productos, comun la parte de guardar el nombre y precio, es diferente ya que un se ve por pieza y el otro por peso
 
 ## 6. Análisis descendente (Fase 2)
 <!-- Completa el árbol. Marca con (ya existe) las partes que ya resuelve una función de utilerias.h o de ticket.h. -->
