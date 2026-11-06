@@ -77,22 +77,22 @@ Generar ticket de compra
 ├── 1. Mostrar bienvenida
 ├── 2. Pedir los datos
 │     ├── 2.1 Pedir el nombre del producto
-│     ├── 2.2 Pedir el precio (y validar que _____)
-│     ├── 2.3 _____
-│     └── 2.4 _____
+│     ├── 2.2 Pedir el precio (y validar que el precio sea mayor que 0)
+│     ├── 2.3 Pedir la cantidad de productos
+│     └── 2.4 Pedir el descuento (si es que hay o no )
 ├── 3. Calcular los importes
 │     ├── 3.1 Calcular el subtotal
-│     ├── 3.2 _____
-│     ├── 3.3 _____
-│     └── 3.4 _____
-└── 4. _____
+│     ├── 3.2 Aplicar el descuento
+│     ├── 3.3 Aplicar el IVA
+│     └── 3.4 Calcular el total
+└── 4. Mostrar el ticket
 ```
 
 **Análisis ascendente: ¿qué partes del árbol ya estaban resueltas por una función que existe? ¿Cuáles?**
-_____
+Ya estan resultas algunas leerCadena para el nombre del producto, leerDecimal o leerEntero para las cantidad, precios, descuentos, etc.
 
 **¿Alguna parte del árbol hacía más de una cosa? ¿Cómo la dividiste?**
-_____
+En la parte de pedir datos, pense que era todo lo que tenia que contener para llegar al resultado y que de esta manera fuera mas facil programar 
 
 ## 7. Módulos y receta (Fase 2)
 
@@ -100,9 +100,9 @@ _____
 |---|---|---|---|
 | `calcularSubtotal` | precio, cantidad | el subtotal | Función |
 | `calcularDescuento` | subtotal, porcentaje | el monto del descuento | Función |
-| `calcularIVA` | _____ | _____ | _____ |
-| `imprimirTicket` | _____ | _____ | _____ |
-| _____ | _____ | _____ | _____ |
+| `calcularIVA` | Subtotal, porcentaje IVA | El total a pagar | Función |
+| `imprimirTicket` | producto, precio, cantidad, descuento, iva, nombre de la persona que atiende | Muestra el ticket con todo los datos | Procedimiento |
+| 'mostrarBienvenida' | nada, solo da un msj de bienvenidad | Muestra mensaje de bienvenida al programa | Procedimiento |
 
 <!-- Tu receta va en el archivo RECETA.md. Aquí solo responde las preguntas. -->
 
