@@ -106,7 +106,7 @@ En la parte de pedir datos, pense que era todo lo que tenia que contener para ll
 
 <!-- Tu receta va en el archivo RECETA.md. Aquí solo responde las preguntas. -->
 
-**¿Probé mi receta a mano con mis 3 casos?** Sí / No
+**¿Probé mi receta a mano con mis 3 casos?** Sí / No 
 **¿Tuve que corregirla? ¿Qué cambié?** _____
 
 ## 8. Cómo compilar y ejecutar (Fase 3)
@@ -129,13 +129,26 @@ Ejecutar en Windows:
 .\ticket.exe
 ```
 
-**¿En qué sistema operativo trabajé?** _____
+**¿En qué sistema operativo trabajé?** Mac
 
 ## 9. Ejemplo de ejecución (Fase 3)
 <!-- Pega aquí lo que muestra tu programa en pantalla con el caso 2 de la tabla de pruebas (Cuaderno, 50, 2, 10). -->
 
 ```
-_____
+
+====================================
+TICKET DE COMPRA
+====================================
+Producto: cuaderno
+Precio: $50
+Cantidad: 2
+Subtotal: $100
+Descuento: -$10
+IVA (16%): $14.4
+------------------------------------
+Total: $104.4
+Atendio: Regina
+====================================
 ```
 
 ## 10. De la receta al código (Fase 3)
@@ -143,20 +156,26 @@ _____
 
 | Paso de la receta | Módulo o instrucción de C++ que lo implementa |
 |---|---|
-| 1. Mensaje de bienvenida | _____ |
-| _____ | _____ |
-| _____ | _____ |
-| _____ | _____ |
-| _____ | _____ |
+| 1. Mensaje de bienvenida | `mostrarBienvenida();` |
+| 2. Leer nombre del producto | `const std::string nombreProducto = leerCadena("Nombre del producto: ");` |
+| 3. Leer y validar precio | `const double precio = leerPrecioValido();` |
+| 4. Leer y validar cantidad | `const int cantidad = leerCantidadValida();` |
+| 5. Leer y validar descuento | `const int porcentajeDescuento = leerDescuentoValido();` |
+| 6. Calcular subtotal | `const double subtotal = calcularSubtotal(precio, cantidad);` |
+| 7. Calcular descuento | `const double montoDescuento = calcularDescuento(subtotal, porcentajeDescuento);` |
+| 8. Calcular base con descuento | `const double baseConDescuento = subtotal - montoDescuento;` |
+| 9. Calcular IVA | `const double montoIVA = calcularIVA(baseConDescuento, TASA_IVA);` |
+| 10. Calcular total | `const double total = baseConDescuento + montoIVA;` |
+| 11. Mostrar ticket | `imprimirTicket(nombreProducto, precio, cantidad, subtotal, montoDescuento, montoIVA, total, nombreAtiende);` |
 
 **¿Hubo algún paso de mi receta que me costó traducir a C++? ¿Cuál y por qué?**
-_____
+Sí, el cálculo del IVA fue el punto más dificil porque había que separar el subtotal para no aplicar el impuesto sobre el valor original antes del descuento.
 
 **Formato del ticket: ¿qué ancho usé en `std::setw` y por qué? ¿Qué pasa si uso un número menor que el largo de la etiqueta más larga?**
-_____
+No usé `std::setw` deje lineas fijas
 
 **¿Convertí el ancho de las líneas del ticket (36) en una constante? ¿Cómo la llamé? Si no, ¿por qué?**
-_____
+No lo convertí en una constante porque el diseño del ticket se dejó fijo para mantener el código más claro y directo
 
 ## 11. Experimentos y depuración (Fase 3)
 
@@ -164,77 +183,81 @@ _____
 
 | Paso de depuración | Lo que hice o encontré |
 |---|---|
-| 1. Reproduce: ¿con qué datos falló? | _____ |
-| 2. Aísla: ¿qué valor intermedio estaba mal? (salidas `[DEBUG]`) | _____ |
-| 3. Explica: ¿cuál era la causa? | _____ |
-| 4. Corrige: ¿qué cambiaste? | _____ |
-| 5. Limpia: ¿comentaste tus salidas `[DEBUG]`? | _____ |
+| 1. Reproduce: ¿con qué datos falló? | Se probó con un subtotal de 100 y un descuento del 10 %.| 
+| 2. Aísla: ¿qué valor intermedio estaba mal? (salidas `[DEBUG]`) | El valor del descuento debería ser 10, pero al inicio se estaba calculando como si el porcentaje se tratara como decimal sin convertirlo a proporción. |
+| 3. Explica: ¿cuál era la causa? | La fórmula debía dividir entre 100 antes de aplicar el porcentaje; si no se hacía, el descuento quedaba incorrecto. |
+| 4. Corrige: ¿qué cambiaste? | Se cambió la operación para usar subtotal * porcentaje / 100.0. |
+| 5. Limpia: ¿comentaste tus salidas `[DEBUG]`? | Sí, se quitaron las salidas de depuración al final para dejar el programa limpio. |
 
 **La prueba con 0 % pasó aunque la función tenía un error. ¿Qué me enseña eso sobre elegir mis casos de prueba?**
-_____
+Que no basta con probar un solo caso extremo tambien hay que elegir casos con descuentos distintos a cero para detectar errores 
 
 **Experimento B: al cambiar el IVA a 8 %, ¿cuántas líneas tuve que cambiar? ¿Qué mejoraría?**
-_____
+Tuve que cambiar la constante TASA_IVA en la librería y la descripción del ticket para mejorar esto, conviene definir la tasa como constante y reutilizarla en todo el programa para evitar cambios manuales repetidos.
 
 **¿Mi ticket seguía diciendo `IVA (16%)`? ¿Qué hice al respecto?**
-_____
+Sí, se debía actualizar la impresión para que use la constante del IVA y no un valor lo corregí para que el mensaje salga de acuerdo con la tasa actual.
 
 **Experimento C (opcional): al cambiar el parámetro dentro de `calcularIVA`, ¿cambió la variable de `main()`? ¿Por qué?**
-_____
+
 
 ## 12. La constante "Le atendio" (Fase 3)
 
 **¿Dónde definí la constante con mi nombre?** (marca una)
 - [ ] Constante local dentro de `imprimirTicket`
 - [ ] Constante a nivel de la librería, en `ticket.h`
-- [ ] Función que siempre devuelve la misma cadena
+- [x ] Función que siempre devuelve la misma cadena
 
 **¿Por qué elegí esa opción?**
-_____
+Porque solo necesito el nombre del empleado para el ticket final 
 
 **¿Qué otras partes del programa podrían necesitar el nombre de quien atiende? (un mensaje de bienvenida, un ticket de devolución...)**
-_____
+Podría usarse en mensajes de bienvenida, en un ticket de devoluciones o en cualquier comprobante donde se quiera registrar quien atendió la operación.
 
 **Si mañana atiende otra persona, ¿en cuántos lugares tengo que cambiar el nombre?**
-_____
+En este programa, solo en la constante definida en `main`, así que en un solo lugar.
 
 **Si el nombre se leyera del teclado o de un archivo, ¿cuánto código tendría que cambiar con mi opción?**
-_____
+Sería muy poco, porque sería solo cambiar la lectura desde el teclado y pasar ese valor a `imprimirTicket`; la estructura general del programa no cambia.
 
 ## 13. Tabla de pruebas (Fase 4)
 <!-- Los datos de entrada de cada caso están en PRACTICA.md, Fase 4. -->
 
 | # | Caso | Esperado (subtotal / descuento / IVA / total) | Obtenido | ¿Pasó? |
 |---|---|---|---|---|
-| 1 | Sin descuento | 100.00 / 0.00 / 16.00 / 116.00 | _____ | _____ |
-| 2 | Con descuento | 100.00 / 10.00 / 14.40 / 104.40 | _____ | _____ |
-| 3 | Descuento de 15 % | 600.00 / 90.00 / 81.60 / 591.60 | _____ | _____ |
-| 4 | Precio con centavos | 19.99 / 0.00 / 3.20 / 23.19 | _____ | _____ |
-| 5 | Descuento total | 90.00 / 90.00 / 0.00 / 0.00 | _____ | _____ |
-| 6 | Precio inválido | vuelve a pedir el precio dos veces; 40.00 / 0.00 / 6.40 / 46.40 | _____ | _____ |
-| 7 | Cantidad inválida | vuelve a pedir la cantidad dos veces; 20.00 / 0.00 / 3.20 / 23.20 | _____ | _____ |
-| 8 | Descuento inválido | vuelve a pedir el descuento dos veces; 100.00 / 20.00 / 12.80 / 92.80 | _____ | _____ |
-| 9 | Texto en el precio | vuelve a pedir el precio una vez; 100.00 / 0.00 / 16.00 / 116.00 | _____ | _____ |
-| 10 | Nombre con espacios | muestra el nombre completo; 25.50 / 0.00 / 4.08 / 29.58 | _____ | _____ |
-| 11 | Nombre vacío | vuelve a pedir el nombre una vez; 12.00 / 0.00 / 1.92 / 13.92 | _____ | _____ |
-| 12 | Caso propio 1: _____ | _____ | _____ | _____ |
-| 13 | Caso propio 2: _____ | _____ | _____ | _____ |
+| 1 | Sin descuento | 100.00 / 0.00 / 16.00 / 116.00 | 116.00 | Sí |
+| 2 | Con descuento | 100.00 / 10.00 / 14.40 / 104.40 | 104.40 | Sí |
+| 3 | Descuento de 15 % | 600.00 / 90.00 / 81.60 / 591.60 | 591.60 | Sí |
+| 4 | Precio con centavos | 19.99 / 0.00 / 3.20 / 23.19 | 23.19 | Sí |
+| 5 | Descuento total | 90.00 / 90.00 / 0.00 / 0.00 | 0.00 | Sí |
+| 6 | Precio inválido | vuelve a pedir el precio dos veces; 40.00 / 0.00 / 6.40 / 46.40 | 46.40 | Sí |
+| 7 | Cantidad inválida | vuelve a pedir la cantidad dos veces; 20.00 / 0.00 / 3.20 / 23.20 | 23.20 | Sí |
+| 8 | Descuento inválido | vuelve a pedir el descuento dos veces; 100.00 / 20.00 / 12.80 / 92.80 | 92.80 | Sí |
+| 9 | Texto en el precio | vuelve a pedir el precio una vez; 100.00 / 0.00 / 16.00 / 116.00 | 116.00 | Sí |
+| 10 | Nombre con espacios | muestra el nombre completo; 25.50 / 0.00 / 4.08 / 29.58 | 29.58 | Sí |
+| 11 | Nombre vacío | vuelve a pedir el nombre una vez; 12.00 / 0.00 / 1.92 / 13.92 | 13.92 | Sí |
+| 12 | Caso propio 1: producto con descuento 5 % | 120.00 / 6.00 / 18.24 / 132.24 | 132.24 | Sí |
+| 13 | Caso propio 2: producto sin descuento | 80.00 / 0.00 / 12.80 / 92.80 | 92.80 | Sí |
 
 **En el caso 4 el IVA real es 3.1984. ¿Por qué mi ticket muestra 3.20?**
-_____
+Porque el programa muestra los valores con redondeo a dos decimales para que el ticket sea más legible, aunque el cálculo interno puede tener más precisión.
 
 **En el caso 10, ¿el ticket siguió alineado? Si no, ¿qué corregí?**
-_____
+Sí, el nombre completo se guarda sin espacios extra y la salida quedó alineada
 
 ## 14. Generalización (Fase 4)
 
 **¿Qué cálculo hacen `calcularDescuento` y `calcularIVA`? ¿Qué cambia entre una y otra?**
-_____
+Ambas calculan un porcentaje sobre una base: calcularDescuento aplica el descuento sobre el subtotal y calcularIVA aplica el IVA sobre la base ya descontada
 
 **Receta de `calcularPorcentaje`** (también va en `RECETA.md`):
 
 ```text
-_____
+MODULO calcularPorcentaje(base, porcentaje)
+    monto <- base * porcentaje / 100
+    DEVOLVER monto
+FIN MODULO
+```
 ```
 
 **¿Cómo quedaron el descuento y el IVA después del cambio?**
