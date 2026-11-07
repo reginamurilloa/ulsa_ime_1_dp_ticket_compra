@@ -33,7 +33,7 @@ int main() {
     const double total = baseConDescuento + montoIVA;
 
     // Paso 4: imprimir el ticket
-    const std::string nombreAtiende = "Caja 1";
+    const std::string nombreAtiende = "Regina";
     imprimirTicket(nombreProducto, precio, cantidad, subtotal,
                    montoDescuento, montoIVA, total, nombreAtiende);
 
