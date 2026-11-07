@@ -16,22 +16,26 @@
 #include "ticket.h"
 
 int main() {
-    // Variables (siempre inicializadas)
-    // TODO: ¿cuántas necesitas? ¿De qué tipo es cada una?
-
     // Paso 1: mensaje de bienvenida
-    // TODO
+    mostrarBienvenida();
 
     // Paso 2: pedir y validar los datos
-    // TODO: ¿qué función de utilerias.h usas para cada dato?
-    //       ¿Cómo vuelves a pedir un dato que está fuera de rango?
+    const std::string nombreProducto = leerCadena("Nombre del producto: ");
+    const double precio = leerPrecioValido();
+    const int cantidad = leerCantidadValida();
+    const int porcentajeDescuento = leerDescuentoValido();
 
-    // Paso 3: calcular los importes llamando a los módulos de ticket.h
-    // TODO
+    // Paso 3: calcular los importes
+    const double subtotal = calcularSubtotal(precio, cantidad);
+    const double montoDescuento = calcularDescuento(subtotal, porcentajeDescuento);
+    const double baseConDescuento = subtotal - montoDescuento;
+    const double montoIVA = calcularIVA(baseConDescuento, TASA_IVA);
+    const double total = baseConDescuento + montoIVA;
 
     // Paso 4: imprimir el ticket
-    // TODO
+    const std::string nombreAtiende = "Caja 1";
+    imprimirTicket(nombreProducto, precio, cantidad, subtotal,
+                   montoDescuento, montoIVA, total, nombreAtiende);
 
-    // ¿Qué significa return 0;?
     return 0;
 }
