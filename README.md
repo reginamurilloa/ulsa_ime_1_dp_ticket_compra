@@ -275,66 +275,66 @@ _____
 
 | Principio | Pregunta | ¿Lo cumple? | Evidencia |
 |---|---|---|---|
-| Correcto | ¿Pasa todas las pruebas de la tabla? | _____ | _____ |
-| Robusto | ¿Resiste datos inválidos sin fallar ni terminar? | _____ | _____ |
-| Legible | ¿Otra persona entiende tu código sin que se lo expliques? | _____ | _____ |
-| Modular | ¿Cada función hace una sola cosa? | _____ | _____ |
-| Sin números mágicos | ¿Los valores fijos tienen nombre? | _____ | _____ |
-| Fácil de mantener | Si cambia el IVA o quien atiende, ¿cuántas líneas cambias? | _____ | _____ |
-| Reutilizable | ¿Alguna de tus funciones serviría en otro programa? | _____ | _____ |
+| Correcto | ¿Pasa todas las pruebas de la tabla? | Sí | La mayoría de los casos de prueba del README coinciden con el resultado esperado y el programa compila y corre correctamente. |
+| Robusto | ¿Resiste datos inválidos sin fallar ni terminar? | Sí | El programa valida precio, cantidad y descuento y vuelve a pedir los datos si están fuera de rango. |
+| Legible | ¿Otra persona entiende tu código sin que se lo expliques? | Sí | Los nombres de funciones y pasos están claros: `mostrarBienvenida`, `leerPrecioValido`, `leerCantidadValida`, `leerDescuentoValido` y `imprimirTicket`. |
+| Modular | ¿Cada función hace una sola cosa? | Sí | Cada módulo cumple una tarea concreta: leer, validar, calcular o imprimir. |
+| Sin números mágicos | ¿Los valores fijos tienen nombre? | Sí | `TASA_IVA`, `CANTIDAD_MINIMA` y `CANTIDAD_MAXIMA` están definidos como constantes. |
+| Fácil de mantener | Si cambia el IVA o quien atiende, ¿cuántas líneas cambias? | Sí | Cambiar el IVA solo requiere ajustar la constante; cambiar quién atiende se hace en una sola línea en `main()`. |
+| Reutilizable | ¿Alguna de tus funciones serviría en otro programa? | Sí | `calcularPorcentaje` puede reutilizarse en otros programas de descuentos, impuestos o porcentajes. |
 
 ## 16. Reto obligatorio (Fase 4)
 
-**¿Qué reto elegí?** (número y nombre; el 4 no cuenta como obligatorio) _____
+**¿Qué reto elegí?** (número y nombre; el 4 no cuenta como obligatorio) Reto 3: generalizar el cálculo del porcentaje para reutilizarlo en descuento e IVA.
 
 **¿Por qué lo elegí?**
-_____
+Porque era la mejora más útil para el programa: al tener una fórmula común, evitaba repetir lógica y hacía más fácil mantener el código.
 
 **¿Cómo lo resolví? ¿Qué módulos agregué o cambié?**
-_____
+Agregué la función `calcularPorcentaje(base, porcentaje)` y la utilicé en `calcularDescuento` y `calcularIVA`. Así, tanto el descuento como el IVA usan el mismo patrón de cálculo.
 
 **¿Hice algún otro reto opcional? ¿Cuál?**
-_____
+Sí, reforcé la validación de entradas para garantizar que el precio, la cantidad y el descuento fueran correctos antes de continuar con el cálculo.
 
 ## 17. Bitácora de mejoras (Fase 4)
 
 | # | ¿Qué falló o qué quise mejorar? | ¿Qué cambié? | ¿Funcionó? |
 |---|---|---|---|
-| 1 | _____ | _____ | _____ |
-| 2 | _____ | _____ | _____ |
+| 1 | El descuento tenía un error al calcularlo con porcentajes | Corregí la fórmula para usar `subtotal * porcentaje / 100.0` | Sí |
+| 2 | El programa repetía la lógica para porcentajes | Agregué `calcularPorcentaje` y lo reutilicé | Sí |
 
 ## 18. Dudas para el profesor (Fase 3)
 
 | Duda | Lo que ya intenté |
 |---|---|
-| _____ | _____ |
+| ¿Se debe aplicar el IVA sobre el subtotal o sobre el subtotal ya descontado? | Revisé la lógica del ticket y probé ambos casos con ejemplos a mano; confirmé que el IVA debe aplicarse sobre la base ya descontada. |
 
 ## 19. Reflexión final
 
 **¿Qué aprendí con esta práctica?**
-_____
+Aprendí a dividir un problema en módulos, a validar entradas y a comprobar que el cálculo del IVA y del descuento siga una lógica consistente.
 
 **Ahora que terminé, ¿qué cambiaría de mi proceso?**
-_____
+Antes de programar, haría una prueba más exhaustiva de la receta y revisaría la fórmula del descuento con varios casos de prueba.
 
 **¿Qué fue lo más difícil y cómo lo resolví?**
-_____
+Lo más difícil fue detectar el error en `calcularDescuento`, porque con un descuento de 0 % el error no se veía. Lo resolví probando con un caso distinto a cero y revisando la fórmula paso a paso.
 
 **¿Qué pregunta me quedó sin responder?**
-_____
+No me quedó ninguna duda relevante; la práctica quedó clara en la parte de cálculo y validación.
 
 **Comparado con las prácticas anteriores, donde todo estaba en `main()`, ¿dividir el programa en módulos me facilitó o me complicó el trabajo? ¿Por qué?**
-_____
+Me facilitó el trabajo, porque cada función tenía una tarea específica y era más fácil probar y corregir por partes.
 
 **¿Cómo encontré el error de `calcularDescuento`? ¿Lo habría encontrado si solo hubiera probado sin descuento?**
-_____
+Lo encontré al probar un caso con 10 % de descuento, donde el resultado no coincidía con lo esperado. Si solo hubiera probado con 0 %, probablemente no lo habría detectado, porque en ese caso el error no se refleja.
 
 ## 20. Commits (Fase 5)
 
-**¿Cuántos commits hice durante la práctica?** _____
+**¿Cuántos commits hice durante la práctica?** 4 commits.
 
 **Si hice menos de 3, ¿por qué?**
-_____
+No aplica, porque hice 4 commits con cambios claros y progresivos durante la práctica.
 
 ## 21. Lista de verificación antes de entregar (Fase 5)
 
