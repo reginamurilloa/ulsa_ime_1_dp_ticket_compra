@@ -331,10 +331,10 @@ Lo encontré al probar un caso con 10 % de descuento, donde el resultado no coin
 
 ## 20. Commits (Fase 5)
 
-**¿Cuántos commits hice durante la práctica?** 4 commits.
+**¿Cuántos commits hice durante la práctica?** 9 commits.
 
 **Si hice menos de 3, ¿por qué?**
-No aplica, porque hice 4 commits con cambios claros y progresivos durante la práctica.
+No aplica.
 
 ## 21. Lista de verificación antes de entregar (Fase 5)
 
